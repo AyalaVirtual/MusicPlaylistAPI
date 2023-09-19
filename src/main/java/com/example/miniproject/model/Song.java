@@ -1,5 +1,9 @@
 package com.example.miniproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+
+
 @Entity
 @Table(name = "songs")
 public class Song {
@@ -19,7 +23,10 @@ public class Song {
     private String albumName;
 
 
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
