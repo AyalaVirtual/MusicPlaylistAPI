@@ -38,7 +38,7 @@ public class Genre {
     }
 
     public Genre(Long id, String name, String description, User user) {
-        this.id = id;
+        this.id = genreId;
         this.name = name;
         this.description = description;
         this.user = user;
