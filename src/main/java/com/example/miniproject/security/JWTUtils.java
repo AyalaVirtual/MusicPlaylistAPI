@@ -13,8 +13,42 @@ public class JWTUtils {
     private int jwtExpMS;
 
 
+    public String generateJwtToken(MyUserDetails myUserDetails) {
+        // myUserDetails.getUsername() is the user's email address
+        return Jwts.builder()
+                .setSubject(myUserDetails.getUsername())
+                .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + jwtExpMS))
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
+                .compact();
+    }
 
+    public String getUserNameFromJwtToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(jwtSecret)
+                .build().parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 
+    public boolean validateJwtToken(String token) {
 
+        try {
+            Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(token);
+            return true;
+        } catch(SecurityException e) {
+            logger.log(Level.SEVERE, "Invalid JWT signature {}" + e.getMessage());
+        } catch(MalformedJwtException e) {
+            logger.log(Level.SEVERE, "Invalid JWT Malformed JWT Exception {}" + e.getMessage());
+        } catch(ExpiredJwtException e) {
+            logger.log(Level.SEVERE, "JWT token is expired: {}", e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            logger.log(Level.SEVERE, "JWT token is unsupported: {}", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.SEVERE, "JWT claims string is empty: {}", e.getMessage());
+        }
+        return false;
+    }
 
 }
