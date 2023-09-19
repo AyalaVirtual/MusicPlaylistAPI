@@ -1,5 +1,11 @@
 package com.example.miniproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import javax.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Table(name = "genres")
@@ -22,8 +28,9 @@ public class Genre {
     @JsonIgnore
     private User user;
 
-
-
+    @OneToMany(mappedBy = "genre", orphanRemoval = true) // This means it's a one-to-many relationship that is mappedBy the variable representing the link to the other table. orphanRemoval = true means that if we delete the genre, then to delete the song as well
+    @LazyCollection(LazyCollectionOption.FALSE) // This means when you fetch an instance of a genre, fetch the associated songs
+    private List<Song> songList;
 
 
     public Genre(Long id, String name, String description, User user) {
