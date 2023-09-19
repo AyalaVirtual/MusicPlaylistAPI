@@ -33,6 +33,10 @@ public class Genre {
     private List<Song> songList;
 
 
+    public Genre() {
+
+    }
+
     public Genre(Long id, String name, String description, User user) {
         this.id = id;
         this.name = name;
