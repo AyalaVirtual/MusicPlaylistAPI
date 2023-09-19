@@ -1,5 +1,6 @@
 package com.example.miniproject.controller;
 
+import com.example.miniproject.model.User;
 import com.example.miniproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,9 @@ public class UserController {
     }
 
 
-
+    @PostMapping(path = "/register/") // http://localhost:9092/auth/users/register/
+    public User createUser(@RequestBody User userObject) {
+        return userService.createUser(userObject);
+    }
 
 }
