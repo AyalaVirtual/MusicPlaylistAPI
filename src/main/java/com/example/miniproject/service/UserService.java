@@ -1,5 +1,6 @@
 package com.example.miniproject.service;
 
+import com.example.miniproject.model.User;
 import com.example.miniproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -20,5 +21,7 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+
 
 }
