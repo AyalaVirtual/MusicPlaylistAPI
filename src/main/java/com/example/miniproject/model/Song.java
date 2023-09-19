@@ -21,6 +21,11 @@ public class Song {
 
 
 
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    @JsonIgnore
+    private Genre genre;
+
 
     public Song() {
     }
@@ -66,6 +71,15 @@ public class Song {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", artist='" + artist + '\'' +
+                ", albumName='" + albumName + '\'' +
+                ", genre=" + genre +
+                '}';
+    }
 
 }
