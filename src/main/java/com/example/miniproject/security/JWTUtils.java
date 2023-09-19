@@ -1,5 +1,13 @@
 package com.example.miniproject.security;
 
+import io.jsonwebtoken.*;
+import org.springframework.stereotype.Service;
+import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import java.util.Date;
+import java.util.logging.Level;
+
+
 @Service
 public class JWTUtils {
     // This is used to log messages for a specific system or application component
