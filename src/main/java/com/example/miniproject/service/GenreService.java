@@ -11,7 +11,7 @@ public class GenreService {
 
 
 
-    public Optional getGenre(Long id) {
+    public Optional getGenre(Long genreId) {
         List<Genre>
     }
 

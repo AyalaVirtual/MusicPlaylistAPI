@@ -37,7 +37,7 @@ public class Song {
     public Song() {
     }
 
-    public Song(Long songId, String songName, String artist, String albumName, String genre) {
+    public Song(Long songId, String songName, String artist, String albumName, Genre genre) {
         this.songId = songId;
         this.songName = songName;
         this.artist = artist;
