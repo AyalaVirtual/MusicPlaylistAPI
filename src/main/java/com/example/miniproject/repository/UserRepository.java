@@ -1,6 +1,6 @@
-package com.example.playlist.repository;
+package com.example.miniproject.repository;
 
-import com.example.playlist.model.User;
+import com.example.miniproject.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
