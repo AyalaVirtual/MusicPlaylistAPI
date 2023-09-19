@@ -36,6 +36,10 @@ public class User {
     @LazyCollection(LazyCollectionOption.FALSE) // This means when you fetch an instance of a user, fetch the associated genres
     private List<Genre> genre;
 
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE) // This means when you fetch an instance of a user, fetch the associated songs
+    private List<Song> song;
+
 
     public User() {
     }
