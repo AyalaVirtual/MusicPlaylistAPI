@@ -17,6 +17,11 @@ public class Genre {
     private String description;
 
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
 
 
 
@@ -54,7 +59,13 @@ public class Genre {
     }
 
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 
     @Override
