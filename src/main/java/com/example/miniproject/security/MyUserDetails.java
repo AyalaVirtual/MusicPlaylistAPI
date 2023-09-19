@@ -25,12 +25,12 @@ public class MyUserDetails implements UserDetails {
     // We don't generate a setter because we're only trying to get the username. The user sets the username.
     @Override
     public String getUsername() {
-        return null;
+        return user.getEmailAddress();
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
 
@@ -41,22 +41,22 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
 
