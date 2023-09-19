@@ -17,6 +17,11 @@ public class MyUserDetails implements UserDetails {
     }
 
 
+    public User getUser() {
+        return user;
+    }
+
+
     // We don't generate a setter because we're only trying to get the username. The user sets the username.
     @Override
     public String getUsername() {

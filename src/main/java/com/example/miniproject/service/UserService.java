@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 
@@ -32,7 +31,7 @@ public class UserService {
     public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, JWTUtils jwtUtils, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.jwtUtils - jwtUtils;
+        this.jwtUtils = jwtUtils;
         this.authenticationManager = authenticationManager;
     }
 
@@ -48,16 +47,10 @@ public class UserService {
     }
 
 
-    public User findUserByEmailAddress(String emailAddress) {
-        return userRepository.findUserByEmailAddress(emailAddress);
-    }
-
-
     public Optional<String> loginUser(LoginRequest loginRequest) {
 
         UsernamePasswordAuthenticationToken authenticationToken = new
                 UsernamePasswordAuthenticationToken(loginRequest.getEmailAddress(), loginRequest.getPassword());
-
 
         try {
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
@@ -69,4 +62,8 @@ public class UserService {
         }
     }
 
+
+    public User findUserByEmailAddress(String emailAddress) {
+        return userRepository.findUserByEmailAddress(emailAddress);
+    }
 }
