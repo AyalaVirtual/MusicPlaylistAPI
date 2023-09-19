@@ -1,5 +1,7 @@
 package com.example.miniproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,11 @@ public class UserProfile {
 
     @Column
     private String profileDescription;
+
+
+    @OneToOne(mappedBy = "userProfile") // This reflects its one-to-one relationship with user
+    @JsonIgnore
+    private User user;
 
 
     public UserProfile(long id, String firstName, String lastName, String profileDescription, User user) {
@@ -63,7 +70,16 @@ public class UserProfile {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", profileDescription='" + profileDescription + '\'' +
+                ", user=" + user +
+                '}';
+    }
 
 
 
