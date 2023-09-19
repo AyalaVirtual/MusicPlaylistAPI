@@ -1,14 +1,21 @@
 package com.example.miniproject.service;
 
+import com.example.miniproject.exception.InformationExistException;
 import com.example.miniproject.model.User;
 import com.example.miniproject.model.request.LoginRequest;
 import com.example.miniproject.repository.UserRepository;
 import com.example.miniproject.security.JWTUtils;
+import com.example.miniproject.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
