@@ -1,7 +1,11 @@
 package com.example.miniproject.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -27,6 +31,10 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL) // This reflects its one-to-one relationship with userProfile and means that if we delete the user, then to delete the userProfile as well
     @JoinColumn(name = "profile_id", referencedColumnName = "id") // This represents the foreign key/column that joins the User table to UserProfile table
     private UserProfile userProfile;
+
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE) // This means when you fetch an instance of a user, fetch the associated genres
+    private List<Genre> genre;
 
 
     public User() {
