@@ -24,6 +24,11 @@ public class User {
     private String password;
 
 
+    @OneToOne(cascade = CascadeType.ALL) // This reflects its one-to-one relationship with userProfile and means that if we delete the user, then to delete the userProfile as well
+    @JoinColumn(name = "profile_id", referencedColumnName = "id") // This represents the foreign key/column that joins the User table to UserProfile table
+    private UserProfile userProfile;
+
+
     public User() {
     }
 
