@@ -47,10 +47,10 @@ public class UserService {
     }
 
     /**
-     *
+     * This checks the user's details to see if they have a JWT token
      *
      * @param loginRequest
-     * @return
+     * @return user's JWT token if it exists and their login credentials are correct
      */
     public Optional<String> loginUser(LoginRequest loginRequest) {
 
