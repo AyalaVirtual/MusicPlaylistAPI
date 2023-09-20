@@ -43,7 +43,7 @@ public class GenreController {
     }
 
     /**
-     *
+     * This sets the path for POST requests for a genre and links to the corresponding method in GenreService
      *
      * @param genreObject represents the genre the user is trying to create
      * @return the result from calling the POST genre method in GenreService
