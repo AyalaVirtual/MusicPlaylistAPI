@@ -56,7 +56,7 @@ public class GenreController {
 
 
     /**
-     *
+     * This sets the path for DELETE requests for a genre and links to the corresponding method in GenreService
      *
      * @param genreId represents the specific genre by id
      * @return the result from calling the DELETE genre method in GenreService
