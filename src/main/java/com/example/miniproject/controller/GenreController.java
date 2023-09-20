@@ -1,6 +1,7 @@
 package com.example.miniproject.controller;
 
 import com.example.miniproject.model.Genre;
+import com.example.miniproject.model.Song;
 import com.example.miniproject.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -3,6 +3,7 @@ package com.example.miniproject.service;
 import com.example.miniproject.exception.InformationExistException;
 import com.example.miniproject.exception.InformationNotFoundException;
 import com.example.miniproject.model.Genre;
+import com.example.miniproject.model.Song;
 import com.example.miniproject.model.User;
 import com.example.miniproject.repository.GenreRepository;
 import com.example.miniproject.repository.SongRepository;
@@ -44,6 +45,7 @@ public class GenreService {
         return userDetails.getUser();
     }
 
+    // GET individual genre
     public Optional getGenre(Long genreId) {
         Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
 
@@ -54,7 +56,7 @@ public class GenreService {
         }
     }
 
-
+    // GET all genres
     public List<Genre> getGenres() {
         List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
 
@@ -65,6 +67,7 @@ public class GenreService {
         }
     }
 
+    // POST genre
     public Genre createGenre(Genre genreObject) {
         Genre genre = genreRepository.findByName(genreObject.getName());
 
@@ -77,6 +80,16 @@ public class GenreService {
     }
 
 
+    // POST song to genre
+    public Song createSong(Long genreId, Song songObject) {
+
+        try {
+            Optional<Genre> genreOptional = genreRepository.findById(genreId);
+            songObject.setGenre(genreOptional.get());
+            return songRepository.save(songObject);
+
+        }
+    }
 
 
 }
