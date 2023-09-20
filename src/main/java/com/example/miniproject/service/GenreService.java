@@ -105,7 +105,11 @@ public class GenreService {
         Optional<Song> songOptional = songRepository.findById(songId);
         Optional<Genre> genreOptional = genreRepository.findById((genreId));
 
-
+        if (songOptional.isPresent()){
+            return songOptional;
+        }else {
+            throw new InformationNotFoundException("category with id ");
+        }
     }
 
 
