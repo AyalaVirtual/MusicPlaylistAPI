@@ -94,4 +94,10 @@ public class GenreService {
     }
 
 
+    // GET all songs
+    public List<Song> getSongs(){
+        return songRepository.findAll();
+    }
+
+
 }
