@@ -83,7 +83,6 @@ public class GenreController {
      *
      * @return the result from calling the GET all songs method in GenreService
      */
-    // GET all songs
     @GetMapping(path = "/genres/songs/")
     public List<Song> getSongs(){
         return genreService.getSongs();
@@ -96,7 +95,6 @@ public class GenreController {
      * @param songId represents the specific song by id
      * @return the result from calling the GET specific song method in GenreService
      */
-    // GET individual song
     @GetMapping(path = "/genres/{genreId}/songs/{songId}/")
     public Optional<Song> getSong(@PathVariable(value = "genreId") Long genreId, @PathVariable(value = "songId") Long songId){
         return genreService.getSong(genreId, songId);

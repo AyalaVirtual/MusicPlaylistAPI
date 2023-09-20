@@ -46,7 +46,12 @@ public class UserService {
         }
     }
 
-
+    /**
+     *
+     *
+     * @param loginRequest
+     * @return
+     */
     public Optional<String> loginUser(LoginRequest loginRequest) {
 
         UsernamePasswordAuthenticationToken authenticationToken = new
@@ -62,7 +67,12 @@ public class UserService {
         }
     }
 
-
+    /**
+     * This finds a user by their email address
+     *
+     * @param emailAddress represents the user's email address
+     * @return the user associated with the given email address
+     */
     public User findUserByEmailAddress(String emailAddress) {
         return userRepository.findUserByEmailAddress(emailAddress);
     }
