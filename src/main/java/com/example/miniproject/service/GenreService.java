@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -87,8 +88,8 @@ public class GenreService {
      * @param genreObject represents the genre the user is trying to create
      * @return newly created genre
      */
-    public Genre createGenre(Genre genreObject) {
-        Genre genre = genreRepository.findByName(genreObject.getName());
+    public Genre createGenre(Long genreId, Genre genreObject) {
+        Genre genre = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
 
         if (genre != null) {
             throw new InformationExistException("genre with name " + genreObject.getName() + " already exists");
@@ -100,13 +101,37 @@ public class GenreService {
 
 
     /**
+     * This is a PUT request that checks to see if a genre exists before either throwing an InformationNotFoundException, or saving the newly updated genre to the repository
+     *
+     * @param genreId represents the genre the user is trying to create
+     * @param genreObject represents the genre the user is trying to create
+     * @return the newly updated genre
+     */
+    public Genre updateGenre(Long genreId, Genre genreObject) {
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+
+        if (genreOptional.isPresent()) {
+            if (genreObject.getName().equals(genreOptional.get().getName()) &&
+                    genreObject.getDescription().equals(genreOptional.get().getDescription())) {
+                throw new InformationExistException("The genre name is already " + genreObject.getName() + " and description is already " + genreObject.getDescription());
+            } else {
+                genreObject.setUser(GenreService.getCurrentLoggedInUser());
+                return genreRepository.save(genreObject);
+            }
+        } else {
+            throw new InformationNotFoundException("Genre with id " + genreId + " not found.");
+        }
+    }
+
+
+    /**
      * This is a DELETE request that checks to see if an individual genre exists before either deleting it, or throwing an InformationNotFoundException
      *
      * @param genreId represents the id of a specific genre of music
      * @return the deleted genre
      */
     public Optional<Genre> deleteGenre(Long genreId) {
-        Optional<Genre> genreOptional = genreRepository.findById(genreId);
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
         if (genreOptional.isPresent()) {
             genreRepository.deleteById(genreId);
             return genreOptional;
@@ -123,16 +148,30 @@ public class GenreService {
      * @param songObject represents the song the user is trying to create
      * @return the newly created song
      */
-    public Song createSong(Long genreId, Song songObject) {
+    public Song createSong(Long songId, Long genreId, Song songObject) {
 
-        try {
-            Optional<Genre> genreOptional = genreRepository.findById(genreId);
-            songObject.setGenre(genreOptional.get());
-            return songRepository.save(songObject);
+         try {
+            // Optional<Genre> genreOptional = Optional.ofNullable(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
 
-        } catch (InformationNotFoundException e) {
-            throw new InformationNotFoundException("genre with id " + genreId + " not found");
-        }
+            Optional<Song> songOptional = Optional.of(songRepository.findByNameAndUserId(songObject, GenreService.getCurrentLoggedInUser().getId()));
+            /*
+            if (genreOptional.isPresent() && songOptional != null) {
+                throw new InformationExistException("song with name " + songObject.getName() + " already exists");
+            } else if (!genreOptional.isPresent()) {
+                throw new InformationNotFoundException("genre with id " + genreId + " not found");
+            } else {
+                songObject.setGenre(genreOptional.get());
+                songObject.setUser(GenreService.getCurrentLoggedInUser());
+                // return songRepository.save(songObject);
+            }
+            */
+             // songObject.setGenre(genreOptional.get());
+             songObject.setUser(GenreService.getCurrentLoggedInUser());
+             return songRepository.save(songObject);
+
+         } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("genre with id " + genreId + " not found");
+         }
     }
 
     /**
@@ -153,13 +192,16 @@ public class GenreService {
      * @return song by id if it exists
      */
     public Optional<Song> getSong(Long genreId, Long songId){
-        Optional<Song> songOptional = songRepository.findById(songId);
+
+        Optional<Song> songOptional = Optional.of(songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId()));
+
+        // Optional<Song> songOptional = songRepository.findById(songId);
         Optional<Genre> genreOptional = genreRepository.findById((genreId));
 
         if (songOptional.isPresent()){
             return songOptional;
         }else {
-            throw new InformationNotFoundException("category with id ");
+            throw new InformationNotFoundException("song with id " + songId + " not found");
         }
     }
 

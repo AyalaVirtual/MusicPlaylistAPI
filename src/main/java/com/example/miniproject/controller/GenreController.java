@@ -49,8 +49,14 @@ public class GenreController {
      * @return the result from calling the POST genre method in GenreService
      */
     @PostMapping(path = "/genres/") // http://localhost:9092/api/genres/
-    public Genre createGenre(@RequestBody Genre genreObject) {
-        return genreService.createGenre(genreObject);
+    public Genre createGenre(Long genreId, @RequestBody Genre genreObject) {
+        return genreService.createGenre(genreId, genreObject);
+    }
+
+
+    @PutMapping(path = "/genres/{genreId}/") // http://localhost:9092/api/genres/1/
+    public Genre updateGenre(@PathVariable(value = "genreId") Long genreId, @RequestBody Genre genreObject) {
+        return genreService.updateGenre(genreId, genreObject);
     }
 
 
@@ -73,9 +79,9 @@ public class GenreController {
      * @return the result from calling the POST song method in GenreService
      */
     @PostMapping(path = "/genres/{genreId}/songs/") // http://localhost:9092/api/genres/1/songs/
-    public Song createSong(@PathVariable(value = "genreId") Long genreId, @RequestBody Song songObject) {
+    public Song createSong(@PathVariable(value = "genreId") Long genreId, Long songId, @RequestBody Song songObject) {
 
-        return genreService.createSong(genreId, songObject);
+        return genreService.createSong(genreId, songId, songObject);
     }
 
     /**
