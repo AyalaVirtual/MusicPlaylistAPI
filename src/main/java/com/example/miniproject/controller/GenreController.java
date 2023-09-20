@@ -3,6 +3,7 @@ package com.example.miniproject.controller;
 import com.example.miniproject.model.Genre;
 import com.example.miniproject.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,9 @@ public class GenreController {
     public Genre createGenre(@RequestBody Genre genreObject) {
         return genreService.createGenre(genreObject);
     }
+
+
+
 
 
 }

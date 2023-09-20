@@ -8,6 +8,8 @@ import com.example.miniproject.repository.GenreRepository;
 import com.example.miniproject.repository.SongRepository;
 import com.example.miniproject.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -64,13 +66,12 @@ public class GenreService {
     }
 
     public Genre createGenre(Genre genreObject) {
-        // Genre genre = genreRepository.findByName(genreObject.getName());
-        Genre genre = genreRepository.findByNameAndUserId(genreObject, getCurrentLoggedInUser().getId());
+        Genre genre = genreRepository.findByName(genreObject.getName());
 
         if (genre != null) {
             throw new InformationExistException("genre with name " + genreObject.getName() + " already exists");
         } else {
-            genreObject.setUser(getCurrentLoggedInUser());
+            genreObject.setUser(GenreService.getCurrentLoggedInUser());
             return genreRepository.save(genreObject);
         }
     }

@@ -35,14 +35,14 @@ public class SeedData implements CommandLineRunner {
 
         // In production, we would not have this file!! This is just for testing. The user data must match what we enter in Postman for it to work, or we'll have to create user everytime in Postman before logging in the user
         User user = new User();
-        user.setUserName("Korin");
-        user.setEmailAddress("enchantress@gmail.com");
-        user.setPassword(passwordEncoder.encode("magic7"));
+        user.setUserName("musicLuvr");
+        user.setEmailAddress("cigana@gmail.com");
+        user.setPassword(passwordEncoder.encode("pombagira7"));
         userRepository.save(user);
 
-        Genre genre = new Genre);
-        genre.setName("Emo Rap");
-        genre.setDescription("a blend of new age Hip Hop and R&B");
+        Genre genre = new Genre();
+        genre.setName("Hip Hop/R&B");
+        genre.setDescription("a modern take on the hybridity between hip hop and R&B");
         genre.setUser(user);
         genreRepository.save(genre);
 
@@ -51,7 +51,7 @@ public class SeedData implements CommandLineRunner {
         song1.setName("Already Dead");
         song1.setArtist("Juice Wrld");
         song1.setAlbumName("Fighting Demons");
-        songRepository.save(song1)
+        songRepository.save(song1);
 
     }
 
