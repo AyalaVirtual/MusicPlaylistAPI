@@ -106,7 +106,7 @@ public class GenreController {
     }
 
     /**
-     *
+     * This sets the path for DELETE requests for a song and links to the corresponding method in GenreService
      *
      * @param genreId represents the specific genre by id
      * @param songId represents the specific song by id
