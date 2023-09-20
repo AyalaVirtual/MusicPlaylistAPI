@@ -9,7 +9,6 @@ import com.example.miniproject.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -43,7 +42,7 @@ public class GenreService {
     }
 
     public Optional getGenre(Long genreId) {
-        Optional<Genre> genreOptional = Optional.of(genreRepository.getByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
 
         if (genreOptional.isPresent()) {
             return genreOptional;

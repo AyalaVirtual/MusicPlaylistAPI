@@ -1,5 +1,6 @@
 package com.example.miniproject.controller;
 
+import com.example.miniproject.model.Genre;
 import com.example.miniproject.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,11 @@ public class GenreController {
         this.genreService = genreService;
     }
 
+
+    @GetMapping(path = "/genres/") // http://localhost:9092/api/genres/
+    public List<Genre> getGenres() {
+        return genreService.getGenres();
+    }
 
 
 }
