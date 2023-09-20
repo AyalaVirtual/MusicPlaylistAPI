@@ -64,7 +64,8 @@ public class GenreService {
     }
 
     public Genre createGenre(Genre genreObject) {
-        Genre genre = genreRepository.findByName(genreObject.getName());
+        // Genre genre = genreRepository.findByName(genreObject.getName());
+        Genre genre = genreRepository.findByNameAndUserId(genreObject, getCurrentLoggedInUser().getId());
 
         if (genre != null) {
             throw new InformationExistException("genre with name " + genreObject.getName() + " already exists");
