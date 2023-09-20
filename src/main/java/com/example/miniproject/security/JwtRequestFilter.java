@@ -35,7 +35,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         this.jwtUtils = jwtUtils;
     }
 
-
+    /**
+     * This checks to see if the request header contains the string "Authorization and starts with "Bearer", then returns the JWT token
+     *
+     * @param request represents the HttpServletRequest
+     * @return null
+     */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
 
@@ -45,7 +50,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         return null;
     }
 
-
+    /**
+     * This checks to see is the JWT token is not null and is valid before getting and setting the user's details and authentication
+     *
+     * @param request represents the HttpServletRequest
+     * @param response represents the HttpServletResponse
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
