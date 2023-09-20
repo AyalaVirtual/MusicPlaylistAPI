@@ -30,6 +30,10 @@ public class GenreController {
         return genreService.getGenre(genreId);
     }
 
+    @PostMapping(path = "/genres/") // http://localhost:9092/api/genres/
+    public Genre createGenre(@RequestBody Genre genreObject) {
+        return genreService.createGenre(genreObject);
+    }
 
 
 }

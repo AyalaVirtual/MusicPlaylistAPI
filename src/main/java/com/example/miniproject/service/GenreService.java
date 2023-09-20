@@ -1,5 +1,6 @@
 package com.example.miniproject.service;
 
+import com.example.miniproject.exception.InformationExistException;
 import com.example.miniproject.exception.InformationNotFoundException;
 import com.example.miniproject.model.Genre;
 import com.example.miniproject.model.User;
@@ -62,7 +63,16 @@ public class GenreService {
         }
     }
 
+    public Genre createGenre(Genre genreObject) {
+        Genre genre = genreRepository.findByName(genreObject.getName());
 
+        if (genre != null) {
+            throw new InformationExistException("genre with name " + genreObject.getName() + " already exists");
+        } else {
+            genreObject.setUser(getCurrentLoggedInUser());
+            return genreRepository.save(genreObject);
+        }
+    }
 
 
 

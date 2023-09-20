@@ -18,7 +18,6 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
     // This method retrieves an individual genre by user
     Genre findByIdAndUserId(Long genreId, Long userId);
 
-
-
+    Genre findByNameAndUserId(Genre genreObject, Long userId);
 
 }
