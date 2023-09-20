@@ -61,6 +61,10 @@ public class GenreController {
         return genreService.getSongs();
     }
 
-
+    // GET individual song
+    @GetMapping(path = "/genres/{genreId}/songs/{songId}/")
+    public Optional<Song> getSong(@PathVariable(value = "genreId") Long genreId, @PathVariable(value = "songId") Long songId){
+        return genreService.getSong(genreId, songId);
+    }
 
 }
