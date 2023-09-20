@@ -21,23 +21,39 @@ public class GenreController {
         this.genreService = genreService;
     }
 
-
+    // GET all genres
     @GetMapping(path = "/genres/") // http://localhost:9092/api/genres/
     public List<Genre> getGenres() {
         return genreService.getGenres();
     }
 
+    // GET individual genre
     @GetMapping(path = "/genres/{genreId}/") // http://localhost:9092/api/genres/1/
     public Optional<Genre> getGenre(@PathVariable(value = "genreId") Long genreId) {
         return genreService.getGenre(genreId);
     }
 
+    // POST genre
     @PostMapping(path = "/genres/") // http://localhost:9092/api/genres/
     public Genre createGenre(@RequestBody Genre genreObject) {
         return genreService.createGenre(genreObject);
     }
 
 
+
+
+
+
+
+
+
+
+    // POST song to genre
+    @PostMapping(path = "/genres/{genreId}/songs/") // http://localhost:9092/api/genres/1/songs/
+    public Song createSong(@PathVariable(value = "genreId") Long genreId, @RequestBody Song songObject) {
+
+        return genreService.createSong(genreId, songObject);
+    }
 
 
 
