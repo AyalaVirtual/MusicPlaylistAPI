@@ -35,7 +35,12 @@ public class UserService {
         this.authenticationManager = authenticationManager;
     }
 
-
+    /**
+     * This checks to see if a user's email address already exists in the system before setting their email address and password and registering a new user
+     *
+     * @param userObject represents a user's registration details (email address and password)
+     * @return newly registered user
+     */
     public User createUser(User userObject) {
 
         if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
