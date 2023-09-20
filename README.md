@@ -22,7 +22,7 @@ I started off by creating my user stories and acceptance criteria. This helped m
 Finally, I created an ERD (entity relationship diagram) to plan my different models and their relevant attributes. This helped me to visualize their relationships to one another and plan out how I was going to link the corresponding tables in the database.
 
 
-<img src="C:\Users\Owner\Documents\spring\miniproject\images\PlaylistERD.png" alt="ERD">
+<img src="./images/PlaylistERD.png" alt="ERD">
 
 
 
