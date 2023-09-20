@@ -11,10 +11,10 @@ public class Song {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long songId;
+    private Long id;
 
     @Column
-    private String songName;
+    private String name;
 
     @Column
     private String artist;
@@ -37,29 +37,29 @@ public class Song {
     public Song() {
     }
 
-    public Song(Long songId, String songName, String artist, String albumName, Genre genre) {
-        this.songId = songId;
-        this.songName = songName;
+    public Song(Long id, String name, String artist, String albumName, Genre genre) {
+        this.id = id;
+        this.name = name;
         this.artist = artist;
         this.albumName = albumName;
         this.genre = genre;
     }
 
 
-    public Long getSongId() {
-        return songId;
+    public Long getId() {
+        return id;
     }
 
-    public void setSongId(Long songId) {
-        this.songId = songId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getSongName() {
-        return songName;
+    public String getName() {
+        return name;
     }
 
-    public void setSongName(String songName) {
-        this.songName = songName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getArtist() {
@@ -82,8 +82,8 @@ public class Song {
     @Override
     public String toString() {
         return "Song{" +
-                "songId=" + songId +
-                ", songName='" + songName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", artist='" + artist + '\'' +
                 ", albumName='" + albumName + '\'' +
                 ", genre=" + genre +
