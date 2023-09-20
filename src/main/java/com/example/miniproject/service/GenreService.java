@@ -40,6 +40,7 @@ public class GenreService {
 
 
     /**
+     * This gets current user's principal (details/information (whether their account is expired, locked, etc.) from SecurityContextHolder returns the current logged in user
      *
      * @return the details of the user who is currently logged in
      */
@@ -50,7 +51,7 @@ public class GenreService {
     }
 
     /**
-     * This method is a GET request that checks to see if an individual genre exists before either returning it, or throwing an InformationNotFoundException
+     * This is a GET request that checks to see if an individual genre exists before either returning it, or throwing an InformationNotFoundException
      *
      * @param genreId represents the id of a specific genre of music
      * @return genre by id if it exists
@@ -66,7 +67,7 @@ public class GenreService {
     }
 
     /**
-     * This method is a GET request that checks to see if the list of music genres is empty before either throwing an InformationNotFoundException, or  returning the list of genres
+     * This is a GET request that checks to see if the list of music genres is empty before either throwing an InformationNotFoundException, or  returning the list of genres
      *
      * @return a list of all music genres
      */
@@ -80,7 +81,12 @@ public class GenreService {
         }
     }
 
-    // POST genre
+    /**
+     * This is a POST request that checks to see if a genre already exists before either throwing an InformationExistException, or saving the newly created genre to the repository
+     *
+     * @param genreObject represents the genre the user is trying to create
+     * @return
+     */
     public Genre createGenre(Genre genreObject) {
         Genre genre = genreRepository.findByName(genreObject.getName());
 
