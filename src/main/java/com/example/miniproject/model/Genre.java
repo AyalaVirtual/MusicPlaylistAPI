@@ -14,10 +14,10 @@ public class Genre {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long genreId;
+    private Long id;
 
     @Column
-    private String genreName;
+    private String name;
 
     @Column
     private String description;
@@ -37,26 +37,27 @@ public class Genre {
 
     }
 
-    public Genre(Long genreId, String genreName, String description, User user, List<Song> songList) {
-        this.genreId = genreId;
-        this.genreName = genreName;
+    public Genre(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
         this.description = description;
     }
 
-    public Long getGenreId() {
-        return genreId;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setGenreId(Long genreId) {
-        this.genreId = genreId;
+    public Genre(Long id) {
+        this.id = id;
     }
 
-    public String getGenreName() {
-        return genreName;
+    public String getName() {
+        return name;
     }
 
-    public void setGenreName(String genreName) {
-        this.genreName = genreName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -76,12 +77,19 @@ public class Genre {
         this.user = user;
     }
 
+    public List<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSongList(List<Song> songList) {
+        this.songList = songList;
+    }
 
     @Override
     public String toString() {
         return "Genre{" +
-                "genreId=" + genreId +
-                ", genreName='" + genreName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
