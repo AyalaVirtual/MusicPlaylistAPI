@@ -1,5 +1,6 @@
 package com.example.miniproject.service;
 
+import com.example.miniproject.exception.InformationNotFoundException;
 import com.example.miniproject.model.Genre;
 import com.example.miniproject.model.User;
 import com.example.miniproject.repository.GenreRepository;
@@ -42,7 +43,23 @@ public class GenreService {
     }
 
     public Optional getGenre(Long genreId) {
-        List<Genre>
+        Optional<Genre> genreOptional = Optional.of(genreRepository.getByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+
+        if (genreOptional.isPresent()) {
+            return genreOptional;
+        } else {
+            throw new InformationNotFoundException("Genre with id " + genreId + " not found");
+        }
+    }
+
+    public List<Genre> getGenres() {
+        List<Genre> genreList = GenreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
+
+        if (genreList.isEmpty()) {
+            throw new InformationNotFoundException("no genres found for user id");
+        } else {
+            return genreList;
+        }
     }
 
 
