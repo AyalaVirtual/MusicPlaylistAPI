@@ -46,7 +46,7 @@ public class GenreController {
      *
      *
      * @param genreObject represents the genre the user is trying to create
-     * @return
+     * @return the result from calling the POST genre method in GenreService
      */
     // POST genre
     @PostMapping(path = "/genres/") // http://localhost:9092/api/genres/
@@ -59,7 +59,7 @@ public class GenreController {
      *
      *
      * @param genreId represents the specific genre by id
-     * @return
+     * @return the result from calling the DELETE genre method in GenreService
      */
     // DELETE genre
     @DeleteMapping(path = "/genres/{genreId}") //  http://localhost:9092/api/genres/1/
@@ -72,7 +72,7 @@ public class GenreController {
      *
      * @param genreId represents the specific genre by id
      * @param songObject represents the song the user is trying to create
-     * @return
+     * @return the result from calling the POST song method in GenreService
      */
     // POST song to genre
     @PostMapping(path = "/genres/{genreId}/songs/") // http://localhost:9092/api/genres/1/songs/
@@ -84,7 +84,7 @@ public class GenreController {
     /**
      *
      *
-     * @return
+     * @return the result from calling the GET all songs method in GenreService
      */
     // GET all songs
     @GetMapping(path = "/genres/songs/")
@@ -97,7 +97,7 @@ public class GenreController {
      *
      * @param genreId represents the specific genre by id
      * @param songId represents the specific song by id
-     * @return
+     * @return the result from calling the GET specific song method in GenreService
      */
     // GET individual song
     @GetMapping(path = "/genres/{genreId}/songs/{songId}/")
@@ -110,7 +110,7 @@ public class GenreController {
      *
      * @param genreId represents the specific genre by id
      * @param songId represents the specific song by id
-     * @return
+     * @return the result from calling the DELETE song method in GenreService
      */
     // DELETE song
     @DeleteMapping(path = "/genres/{genreId}/songs/{songId}/")
