@@ -88,6 +88,8 @@ public class GenreService {
             songObject.setGenre(genreOptional.get());
             return songRepository.save(songObject);
 
+        } catch (InformationNotFoundException e) {
+            throw new InformationNotFoundException("genre with id " + genreId + " not found");
         }
     }
 
