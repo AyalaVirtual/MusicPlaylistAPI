@@ -100,4 +100,13 @@ public class GenreService {
     }
 
 
+    // GET individual song
+    public Optional<Song> getSong(Long genreId, Long songId){
+        Optional<Song> songOptional = songRepository.findById(songId);
+        Optional<Genre> genreOptional = genreRepository.findById((genreId));
+
+
+    }
+
+
 }
