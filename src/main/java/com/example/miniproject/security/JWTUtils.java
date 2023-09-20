@@ -20,7 +20,12 @@ public class JWTUtils {
     @Value("${jwt-expiration-ms}")
     private int jwtExpMS;
 
-
+    /**
+     * This generates a JWT token
+     *
+     * @param myUserDetails represents the user's details
+     * @return JWT token
+     */
     public String generateJwtToken(MyUserDetails myUserDetails) {
         // myUserDetails.getUsername() is the user's email address
         return Jwts.builder()
@@ -30,6 +35,12 @@ public class JWTUtils {
                 .compact();
     }
 
+    /**
+     * This gets the user's username from the JWT token
+     *
+     * @param token represents the JWT token
+     * @return the user's username
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(jwtSecret)
@@ -38,6 +49,12 @@ public class JWTUtils {
                 .getSubject();
     }
 
+    /**
+     * This validates a JWT token
+     *
+     * @param token represents a JWT token
+     * @return whether or not the JWT token is valid
+     */
     public boolean validateJwtToken(String token) {
 
         try {
