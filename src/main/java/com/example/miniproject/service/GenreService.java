@@ -135,14 +135,23 @@ public class GenreService {
         }
     }
 
-
-    // GET all songs
+    /**
+     * This is a GET request that returns a list of all songs
+     *
+     * @return all songs
+     */
     public List<Song> getSongs(){
         return songRepository.findAll();
     }
 
 
-    // GET individual song
+    /**
+     * This is a GET request that checks to see if an individual song exists before either returning it, or throwing an InformationNotFoundException
+     *
+     * @param genreId represents the specific genre by id
+     * @param songId represents the specific song by id
+     * @return song by id if it exists
+     */
     public Optional<Song> getSong(Long genreId, Long songId){
         Optional<Song> songOptional = songRepository.findById(songId);
         Optional<Genre> genreOptional = genreRepository.findById((genreId));
