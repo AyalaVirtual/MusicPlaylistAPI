@@ -85,7 +85,7 @@ public class GenreService {
      * This is a POST request that checks to see if a genre already exists before either throwing an InformationExistException, or saving the newly created genre to the repository
      *
      * @param genreObject represents the genre the user is trying to create
-     * @return
+     * @return newly created genre
      */
     public Genre createGenre(Genre genreObject) {
         Genre genre = genreRepository.findByName(genreObject.getName());
@@ -99,11 +99,12 @@ public class GenreService {
     }
 
 
-
-
-
-
-    // DELETE genre
+    /**
+     * This is a DELETE request that checks to see if an individual genre exists before either deleting it, or throwing an InformationNotFoundException
+     *
+     * @param genreId represents the id of a specific genre of music
+     * @return the deleted genre
+     */
     public Optional<Genre> deleteGenre(Long genreId) {
         Optional<Genre> genreOptional = genreRepository.findById(genreId);
         if (genreOptional.isPresent()) {
@@ -113,9 +114,6 @@ public class GenreService {
             throw new InformationNotFoundException("genre with id " + genreId + " not found");
         }
     }
-
-
-
 
 
 
