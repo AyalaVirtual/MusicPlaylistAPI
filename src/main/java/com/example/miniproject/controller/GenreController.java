@@ -48,7 +48,11 @@ public class GenreController {
 
 
 
-
+    // DELETE genre
+    @DeleteMapping(path = "/genres/{genreId}") //  http://localhost:9092/api/genres/1/
+    public Optional<Genre> deleteGenre(@PathVariable(value = "genreId") Long genreId) {
+        return genreService.deleteGenre(genreId);
+    }
 
 
     // POST song to genre
