@@ -39,20 +39,36 @@ public class MyUserDetails implements UserDetails {
         return new HashSet<>();
     }
 
+    /**
+     * This checks to see if the user's account is expired
+     *
+     * @return true if the user's account is not expired
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    /**
+     * This checks to make sure the user's account isn't locked
+     *
+     * @return true if the user's account isn't locked
+     */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    /**
+     * This checks whether or not the user's credentials have expired
+     *
+     * @return true if credentials have not expired
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
 
     @Override
     public boolean isEnabled() {
