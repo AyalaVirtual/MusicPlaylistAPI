@@ -68,7 +68,7 @@ public class GenreController {
     }
 
     /**
-     *
+     * This sets the path for POST requests for a song and links to the corresponding method in GenreService
      *
      * @param genreId represents the specific genre by id
      * @param songObject represents the song the user is trying to create
