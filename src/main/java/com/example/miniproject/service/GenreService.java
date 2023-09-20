@@ -136,4 +136,22 @@ public class GenreService {
     }
 
 
+
+
+
+
+
+    // DELETE song
+    public Optional<Song> deleteSong(Long genreId, Long songId){
+        Optional<Genre> genreOptional = genreRepository.findById(genreId);
+        Optional<Song> songOptional = songRepository.findById(songId);
+
+        if (songOptional.isPresent()){
+            songRepository.deleteById(songId);
+            return songOptional;
+        } else {
+            throw new InformationNotFoundException("song with id " + songId + " not found");
+        }
+    }
+
 }
