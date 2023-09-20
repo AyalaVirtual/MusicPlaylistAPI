@@ -55,6 +55,12 @@ public class GenreController {
         return genreService.createSong(genreId, songObject);
     }
 
+    // GET all songs
+    @GetMapping(path = "/genres/songs/")
+    public List<Song> getSongs(){
+        return genreService.getSongs();
+    }
+
 
 
 }
