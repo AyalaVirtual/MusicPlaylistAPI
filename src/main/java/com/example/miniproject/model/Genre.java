@@ -48,7 +48,7 @@ public class Genre {
         return id;
     }
 
-    public Genre(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
