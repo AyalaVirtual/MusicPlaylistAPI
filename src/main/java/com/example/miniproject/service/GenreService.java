@@ -164,12 +164,13 @@ public class GenreService {
     }
 
 
-
-
-
-
-
-    // DELETE song
+    /**
+     * This is a DELETE request that checks to see if an individual song exists before either deleting it, or throwing an InformationNotFoundException
+     *
+     * @param genreId represents the specific genre by id
+     * @param songId represents the specific song by id
+     * @return the deleted song
+     */
     public Optional<Song> deleteSong(Long genreId, Long songId){
         Optional<Genre> genreOptional = genreRepository.findById(genreId);
         Optional<Song> songOptional = songRepository.findById(songId);
