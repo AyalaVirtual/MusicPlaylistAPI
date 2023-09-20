@@ -20,6 +20,13 @@ public class MyUserDetailsService implements UserDetailsService {
         this.userService = userService;
     }
 
+    /**
+     * This finds a user by their email address and either loads the associated user's details or throws a UsernameNotFoundException
+     *
+     * @param emailAddress the username identifying the user whose data is required.
+     * @return the user's details
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
         User user = userService.findUserByEmailAddress(emailAddress);
