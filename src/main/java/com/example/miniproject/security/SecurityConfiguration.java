@@ -27,6 +27,13 @@ public class SecurityConfiguration {
     }
 
 
+    /**
+     * This sets the user's authorization
+     *
+     * @param http represents traffic
+     * @return authorization for user's requests
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // http represents traffic
