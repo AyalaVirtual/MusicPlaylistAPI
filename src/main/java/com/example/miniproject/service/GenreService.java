@@ -39,13 +39,22 @@ public class GenreService {
     }
 
 
+    /**
+     *
+     * @return the details of the user who is currently logged in
+     */
     public static User getCurrentLoggedInUser() {
         // Whenever you login/user sends jwt key, SecurityContextHolder gets filled with current user's principal, which is the user details/information (whether their account is expired, locked, etc.)
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUser();
     }
 
-    // GET individual genre
+    /**
+     * This method is a GET request that checks to see if an individual genre exists before either returning it, or throwing an InformationNotFoundException
+     *
+     * @param genreId represents the id of a specific genre of music
+     * @return genre by id if it exists
+     */
     public Optional getGenre(Long genreId) {
         Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
 
@@ -56,7 +65,11 @@ public class GenreService {
         }
     }
 
-    // GET all genres
+    /**
+     * This method is a GET request that checks to see if the list of music genres is empty before either throwing an InformationNotFoundException, or  returning the list of genres
+     *
+     * @return a list of all music genres
+     */
     public List<Genre> getGenres() {
         List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
 
