@@ -51,8 +51,9 @@ public class GenreService {
         }
     }
 
+
     public List<Genre> getGenres() {
-        List<Genre> genreList = GenreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
+        List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
 
         if (genreList.isEmpty()) {
             throw new InformationNotFoundException("no genres found for user id");
@@ -60,6 +61,9 @@ public class GenreService {
             return genreList;
         }
     }
+
+
+
 
 
 

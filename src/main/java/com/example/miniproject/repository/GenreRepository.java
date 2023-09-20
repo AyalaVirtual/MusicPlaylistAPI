@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Repository
-public interface GenreRepository extends JpaRepository {
+public interface GenreRepository extends JpaRepository<Genre, Long> {
 
     // This method retrieves an individual genre
     Genre findByName(String genreName);
