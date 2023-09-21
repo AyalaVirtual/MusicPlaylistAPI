@@ -19,6 +19,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     // This method retrieves an individual song by user
     Song findByIdAndUserId(Long songId, Long userId);
 
-    Song findByNameAndUserId(Song songObject, Long userId);
+    Song findByNameAndUserId(String songName, Long userId);
 
 }

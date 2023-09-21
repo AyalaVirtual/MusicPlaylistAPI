@@ -148,18 +148,40 @@ public class GenreService {
      * @param songObject represents the song the user is trying to create
      * @return the newly created song
      */
+//    public Song createSong(Long genreId, Song songObject) {
+//
+//        try {
+//            Optional<Genre> genreOptional = genreRepository.findById(genreId);
+//            songObject.setGenre(genreOptional.get());
+//            return songRepository.save(songObject);
+//
+//        } catch (InformationNotFoundException e) {
+//            throw new InformationNotFoundException("genre with id " + genreId + " not found");
+//        }
+//
+//    }
     public Song createSong(Long genreId, Song songObject) {
 
-        try {
-            Optional<Genre> genreOptional = genreRepository.findById(genreId);
-            songObject.setGenre(genreOptional.get());
+            // find genre exist for user
+            Genre genre = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
+            // if genre does not exist, throw error
+            if (genre == null) {
+                throw new InformationNotFoundException("genre with id " + genreId + " not belongs to this user");
+            }
+            // find song name exists in genre that belongs to user
+            Song song = songRepository.findByNameAndUserId(songObject.getName(), GenreService.getCurrentLoggedInUser().getId());
+            // if exists, throw error
+            if (song != null) {
+                throw new InformationExistException("song with name " + songObject.getName() + " already exists");
+            }
+            // or else, create resource
+            songObject.setGenre(genre);
+            songObject.setUser(GenreService.getCurrentLoggedInUser());
             return songRepository.save(songObject);
 
-        } catch (InformationNotFoundException e) {
-            throw new InformationNotFoundException("genre with id " + genreId + " not found");
-        }
-
     }
+
+
 
     /**
      * This is a GET request that returns a list of all songs
