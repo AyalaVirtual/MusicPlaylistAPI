@@ -79,9 +79,9 @@ public class GenreController {
      * @return the result from calling the POST song method in GenreService
      */
     @PostMapping(path = "/genres/{genreId}/songs/") // http://localhost:9092/api/genres/1/songs/
-    public Song createSong(@PathVariable(value = "genreId") Long genreId, Long songId, @RequestBody Song songObject) {
+    public Song createSong(@PathVariable(value = "genreId") Long genreId, @RequestBody Song songObject) {
 
-        return genreService.createSong(genreId, songId, songObject);
+        return genreService.createSong(genreId, songObject);
     }
 
     /**

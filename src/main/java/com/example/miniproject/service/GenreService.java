@@ -91,7 +91,7 @@ public class GenreService {
     public Genre createGenre(Long genreId, Genre genreObject) {
         Genre genre = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
 
-        if (genre != null) {
+        if (genre != null ) {
             throw new InformationExistException("genre with name " + genreObject.getName() + " already exists");
         } else {
             genreObject.setUser(GenreService.getCurrentLoggedInUser());
@@ -148,30 +148,17 @@ public class GenreService {
      * @param songObject represents the song the user is trying to create
      * @return the newly created song
      */
-    public Song createSong(Long songId, Long genreId, Song songObject) {
+    public Song createSong(Long genreId, Song songObject) {
 
-         try {
-            // Optional<Genre> genreOptional = Optional.ofNullable(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        try {
+            Optional<Genre> genreOptional = genreRepository.findById(genreId);
+            songObject.setGenre(genreOptional.get());
+            return songRepository.save(songObject);
 
-            Optional<Song> songOptional = Optional.of(songRepository.findByNameAndUserId(songObject, GenreService.getCurrentLoggedInUser().getId()));
-            /*
-            if (genreOptional.isPresent() && songOptional != null) {
-                throw new InformationExistException("song with name " + songObject.getName() + " already exists");
-            } else if (!genreOptional.isPresent()) {
-                throw new InformationNotFoundException("genre with id " + genreId + " not found");
-            } else {
-                songObject.setGenre(genreOptional.get());
-                songObject.setUser(GenreService.getCurrentLoggedInUser());
-                // return songRepository.save(songObject);
-            }
-            */
-             // songObject.setGenre(genreOptional.get());
-             songObject.setUser(GenreService.getCurrentLoggedInUser());
-             return songRepository.save(songObject);
+        } catch (InformationNotFoundException e) {
+            throw new InformationNotFoundException("genre with id " + genreId + " not found");
+        }
 
-         } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("genre with id " + genreId + " not found");
-         }
     }
 
     /**
