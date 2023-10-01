@@ -142,7 +142,7 @@ public class GenreService {
 
 
     /**
-     * This is a POST request that checks to see if the genre the user is trying to create a song in already exists before either saving the newly created song to the repository, or throwing an InformationExistException
+     * This is a POST request that checks to see if the genre the user is trying to create a song in already exists before either throwing an InformationNotFoundException, or moving on to check if the song already exists. From there, it either saves the newly created song to the repository, or throws an InformationExistException
      *
      * @param genreId represents the id of a specific genre of music
      * @param songObject represents the song the user is trying to create
