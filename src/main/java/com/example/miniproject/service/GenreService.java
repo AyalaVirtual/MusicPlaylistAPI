@@ -103,8 +103,8 @@ public class GenreService {
     /**
      * This is a PUT request that checks to see if a genre exists before either throwing an InformationNotFoundException, or saving the newly updated genre to the repository
      *
-     * @param genreId represents the genre the user is trying to create
-     * @param genreObject represents the genre the user is trying to create
+     * @param genreId represents the genre the user is trying to update
+     * @param genreObject represents the genre the user is trying to update
      * @return the newly updated genre
      */
     public Genre updateGenre(Long genreId, Genre genreObject) {
