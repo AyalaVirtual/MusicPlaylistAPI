@@ -1,6 +1,6 @@
 # Music Playlist
 
-A RestAPI designed allow users to search for different music genres  of music and add them to a saved list of favorites.
+A RestAPI designed to allow users to search for different music genres  of music and add them to a saved list of favorites.
 
 ## Technologies Used
 
@@ -30,7 +30,7 @@ Finally, I created an ERD (entity relationship diagram) to plan my different mod
 
 At first, I struggled with getting my POST requests to work because Postman kept giving me a 403 Forbidden error. I was able to remove a line of code in the user authorizations that fixed this error.
 
-I tried to add an option to search for, save, update, and delete songs as well but wasn't able to get the CRUD methods working for that endpoint. This is something I plan on fixing in the near future.
+I tried to add an option to search for, save, update, and delete songs as well but wasn't able to get the CRUD methods working for that model at first. I have since added the necessary logic to allow users to create new songs. I plan on adding the remaining methods in the near future.
 
 
 
