@@ -35,7 +35,7 @@ I tried to add an option to search for, save, update, and delete songs as well b
 
 
 ### Links
-* User Stories - https://docs.google.com/document/d/16ek8FE4TUzlVReWvnzi49K1mPvhZvCIPBhUX0MJwF1U/edit?usp=sharing
+* User Stories - https://docs.google.com/document/d/1SGBLGTsmVIoI15HafljtCOIrUpOUmSgHz7q_doDW2vI/edit?usp=sharing
 
 * HTTP requests/endpoints spreadsheet - https://docs.google.com/spreadsheets/d/1fRC1rdl435kJwRgIQfqUqSPaAvpXt2WSC11jCMXAtT8/edit?usp=sharing
 
