@@ -34,7 +34,7 @@ public class GenreController {
     /**
      * This sets the path for GET requests for a specific genre and links to the corresponding method in GenreService
      *
-     * @param genreId represents the specific genre by id
+     * @param genreId represents the id of a specific genre 
      * @return the result from calling the GET method for a specific genre in GenreService
      */
     @GetMapping(path = "/genres/{genreId}/") // http://localhost:9092/api/genres/1/
@@ -63,7 +63,7 @@ public class GenreController {
     /**
      * This sets the path for DELETE requests for a genre and links to the corresponding method in GenreService
      *
-     * @param genreId represents the specific genre by id
+     * @param genreId represents the id of a specific genre 
      * @return the result from calling the DELETE genre method in GenreService
      */
     @DeleteMapping(path = "/genres/{genreId}") //  http://localhost:9092/api/genres/1/
@@ -74,7 +74,7 @@ public class GenreController {
     /**
      * This sets the path for POST requests for a song and links to the corresponding method in GenreService
      *
-     * @param genreId represents the specific genre by id
+     * @param genreId represents the id of a specific genre 
      * @param songObject represents the song the user is trying to create
      * @return the result from calling the POST song method in GenreService
      */
@@ -97,8 +97,8 @@ public class GenreController {
     /**
      * This sets the path for GET requests for a specific song and links to the corresponding method in GenreService
      *
-     * @param genreId represents the specific genre by id
-     * @param songId represents the specific song by id
+     * @param genreId represents the id of a specific genre 
+     * @param songId represents the id of a specific song 
      * @return the result from calling the GET specific song method in GenreService
      */
     @GetMapping(path = "/genres/{genreId}/songs/{songId}/")
@@ -109,8 +109,8 @@ public class GenreController {
     /**
      * This sets the path for DELETE requests for a song and links to the corresponding method in GenreService
      *
-     * @param genreId represents the specific genre by id
-     * @param songId represents the specific song by id
+     * @param genreId represents the id of a specific genre 
+     * @param songId represents the id of a specific song 
      * @return the result from calling the DELETE song method in GenreService
      */
     @DeleteMapping(path = "/genres/{genreId}/songs/{songId}/")
