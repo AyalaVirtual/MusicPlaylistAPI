@@ -103,7 +103,7 @@ public class GenreService {
     /**
      * This is a PUT request that checks to see if a genre exists before either throwing an InformationNotFoundException, or saving the newly updated genre to the repository
      *
-     * @param genreId represents the genre the user is trying to update
+     * @param genreId represents the id of the genre the user is trying to update
      * @param genreObject represents the genre the user is trying to update
      * @return the newly updated genre
      */
@@ -196,8 +196,8 @@ public class GenreService {
     /**
      * This is a GET request that checks to see if an individual song exists before either returning it, or throwing an InformationNotFoundException
      *
-     * @param genreId represents the specific genre by id
-     * @param songId represents the specific song by id
+     * @param genreId represents the id of a specific genre 
+     * @param songId represents the id of a specific song 
      * @return song by id if it exists
      */
     public Optional<Song> getSong(Long genreId, Long songId){
@@ -218,8 +218,8 @@ public class GenreService {
     /**
      * This is a DELETE request that checks to see if an individual song exists before either deleting it, or throwing an InformationNotFoundException
      *
-     * @param genreId represents the specific genre by id
-     * @param songId represents the specific song by id
+     * @param genreId represents the id of a specific genre 
+     * @param songId represents the id of a specific song 
      * @return the deleted song
      */
     public Optional<Song> deleteSong(Long genreId, Long songId){
