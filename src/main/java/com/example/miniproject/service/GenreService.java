@@ -41,12 +41,11 @@ public class GenreService {
 
 
     /**
-     * This gets current user's principal (details/information (whether their account is expired, locked, etc.) from SecurityContextHolder returns the current logged in user
+     * This gets current user's principal (this is their details/information, such as whether their account is expired, locked, etc.) from SecurityContextHolder whenever the user logs in/sends jwt key and returns the current logged in user
      *
      * @return the details of the user who is currently logged in
      */
     public static User getCurrentLoggedInUser() {
-        // Whenever you login/user sends jwt key, SecurityContextHolder gets filled with current user's principal, which is the user details/information (whether their account is expired, locked, etc.)
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUser();
     }
