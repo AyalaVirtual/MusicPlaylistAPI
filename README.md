@@ -55,18 +55,20 @@ As a user, I want to create a profile so that I can save my favorite songs in pl
 
 ## HTTP Endpoints
 
-| Request Type | URL                   | Functionality              | Access | 
-|--------------|-----------------------|----------------------------|--------|
-| POST         | /api/genres/          | Create genre               | Public |
-| GET          | /api/genres/          | Get all genres             | Public |
-| GET          | /api/genres/1/        | Get single  genre          | Public |
-| PUT          | /api/genres/1/        | Update single genre        | Public |
-| DELETE       | /api/genres/1/        | Delete single genre        | Public |
-| POST         | /api/genres/1/songs/  | Create a song in a genre    | Public |
-| GET          | /api/genres/songs/    | Get all songs              | Public |
-| GET          | /api/genres/1/songs/1/ | Get a song from a genre    | Public |
-| PUT          | /api/genres/1/songs/1/ | Update a song from a genre | Public |
-| DELETE       | /api/genres/1/songs/1/ | Delete a song from a genre | Public |
+| Request Type | URL                    | Functionality              | Access  | 
+|--------------|------------------------|----------------------------|---------|
+| POST         | /auth/users/register/  | Register a new user        | Public  |
+| POST         | /auth/users/login/     | Login a user               | Public  |
+| POST         | /api/genres/           | Create genre               | Private |
+| GET          | /api/genres/           | Get all genres             | Private |
+| GET          | /api/genres/1/         | Get single  genre          | Private |
+| PUT          | /api/genres/1/         | Update single genre        | Private |
+| DELETE       | /api/genres/1/         | Delete single genre        | Private |
+| POST         | /api/genres/1/songs/   | Create a song in a genre   | Private |
+| GET          | /api/genres/songs/     | Get all songs              | Private |
+| GET          | /api/genres/1/songs/1/ | Get a song from a genre    | Private |
+| PUT          | /api/genres/1/songs/1/ | Update a song from a genre | Private |
+| DELETE       | /api/genres/1/songs/1/ | Delete a song from a genre | Private |
 
 
 
