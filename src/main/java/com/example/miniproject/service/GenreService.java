@@ -186,9 +186,9 @@ public class GenreService {
         Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
         Song song = songRepository.findByNameAndUserId(songObject.getName(), GenreService.getCurrentLoggedInUser().getId());
 
-        if (genreOptional == null) {
+        if (genreOptional.isEmpty()) {
 
-            throw new InformationNotFoundException("genre with id " + genreId + " not belongs to this user");
+            throw new InformationNotFoundException("genre with id " + genreId + " not found");
         } else if (song != null) {
 
             throw new InformationExistException("song with name " + songObject.getName() + " already exists");
@@ -197,7 +197,7 @@ public class GenreService {
             songObject.setGenre(genreOptional.get());
             songObject.setUser(GenreService.getCurrentLoggedInUser());
             List<Song> songList = genreOptional.get().getSongList();
-            songList.add(song);
+            genreOptional.get().addToSongList(songObject);
             genreOptional.get().setSongList(songList);
             return songRepository.save(songObject);
         }
@@ -215,7 +215,6 @@ public class GenreService {
         Optional<Song> songOptional = songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId());
 
         if (songOptional.isPresent()) {
-            // set name, artist, album name, genre, user - then save
             songOptional.get().setName(songObject.getName());
             songOptional.get().setArtist(songObject.getArtist());
             songOptional.get().setAlbumName(songObject.getAlbumName());

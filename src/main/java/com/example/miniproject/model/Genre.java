@@ -85,6 +85,10 @@ public class Genre {
         this.songList = songList;
     }
 
+    public List<Song> addToSongList(Song newSong) {
+        songList.add(newSong);
+    }
+
     @Override
     public String toString() {
         return "Genre{" +
