@@ -107,11 +107,11 @@ public class GenreController {
     }
 
     /**
+     * This sets the path for PUT requests for a song and links to the corresponding method in GenreService
      *
-     *
-     * @param songId
-     * @param songObject
-     * @return
+     * @param songId represents the id of the song the user is trying to update
+     * @param songObject represents the updated version of the song that the user is trying to update
+     * @return the individual song if it exists
      */
     @PutMapping(path = "/genres/{genreId}/songs/{songId}/")
     public Optional<Song> updateSong(@PathVariable(value = "songId") Long songId, @RequestBody Song songObject) {
