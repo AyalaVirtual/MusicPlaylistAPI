@@ -26,9 +26,9 @@ public class GenreController {
      *
      * @return the result from calling the GET method for all genres in GenreService
      */
-    @GetMapping(path = "/genres/") // http://localhost:9092/api/genres/
-    public List<Genre> getGenres() {
-        return genreService.getGenres();
+    @GetMapping(path = "/genres/") //
+    public List<Genre> getAllGenres() {
+        return genreService.getAllGenres();
     }
 
     /**
@@ -37,9 +37,9 @@ public class GenreController {
      * @param genreId represents the id of a specific genre 
      * @return the result from calling the GET method for a specific genre in GenreService
      */
-    @GetMapping(path = "/genres/{genreId}/") // http://localhost:9092/api/genres/1/
-    public Optional<Genre> getGenre(@PathVariable(value = "genreId") Long genreId) {
-        return genreService.getGenre(genreId);
+    @GetMapping(path = "/genres/{genreId}/") //
+    public Optional<Genre> getGenreById(@PathVariable(value = "genreId") Long genreId) {
+        return genreService.getGenreById(genreId);
     }
 
     /**
@@ -48,14 +48,14 @@ public class GenreController {
      * @param genreObject represents the genre the user is trying to create
      * @return the result from calling the POST genre method in GenreService
      */
-    @PostMapping(path = "/genres/") // http://localhost:9092/api/genres/
-    public Genre createGenre(Long genreId, @RequestBody Genre genreObject) {
-        return genreService.createGenre(genreId, genreObject);
+    @PostMapping(path = "/genres/") //
+    public Genre createGenre(@RequestBody Genre genreObject) {
+        return genreService.createGenre(genreObject);
     }
 
 
-    @PutMapping(path = "/genres/{genreId}/") // http://localhost:9092/api/genres/1/
-    public Genre updateGenre(@PathVariable(value = "genreId") Long genreId, @RequestBody Genre genreObject) {
+    @PutMapping(path = "/genres/{genreId}/") //
+    public Optional<Genre> updateGenre(@PathVariable(value = "genreId") Long genreId, @RequestBody Genre genreObject) {
         return genreService.updateGenre(genreId, genreObject);
     }
 
@@ -66,22 +66,9 @@ public class GenreController {
      * @param genreId represents the id of a specific genre 
      * @return the result from calling the DELETE genre method in GenreService
      */
-    @DeleteMapping(path = "/genres/{genreId}") //  http://localhost:9092/api/genres/1/
+    @DeleteMapping(path = "/genres/{genreId}") //
     public Optional<Genre> deleteGenre(@PathVariable(value = "genreId") Long genreId) {
         return genreService.deleteGenre(genreId);
-    }
-
-    /**
-     * This sets the path for POST requests for a song and links to the corresponding method in GenreService
-     *
-     * @param genreId represents the id of a specific genre 
-     * @param songObject represents the song the user is trying to create
-     * @return the result from calling the POST song method in GenreService
-     */
-    @PostMapping(path = "/genres/{genreId}/songs/") //http://localhost:9092/api/genres/1/songs/
-    public Song createSong(@PathVariable(value = "genreId") Long genreId, @RequestBody Song songObject) {
-
-        return genreService.createSong(genreId, songObject);
     }
 
     /**
@@ -90,8 +77,8 @@ public class GenreController {
      * @return the result from calling the GET all songs method in GenreService
      */
     @GetMapping(path = "/genres/songs/")
-    public List<Song> getSongs(){
-        return genreService.getSongs();
+    public List<Song> getAllSongs(){
+        return genreService.getAllSongs();
     }
 
     /**
@@ -102,8 +89,33 @@ public class GenreController {
      * @return the result from calling the GET specific song method in GenreService
      */
     @GetMapping(path = "/genres/{genreId}/songs/{songId}/")
-    public Optional<Song> getSong(@PathVariable(value = "genreId") Long genreId, @PathVariable(value = "songId") Long songId){
-        return genreService.getSong(genreId, songId);
+    public Optional<Song> getSongById(@PathVariable(value = "genreId") Long genreId, @PathVariable(value = "songId") Long songId){
+        return genreService.getSongById(genreId, songId);
+    }
+
+    /**
+     * This sets the path for POST requests for a song and links to the corresponding method in GenreService
+     *
+     * @param genreId represents the id of a specific genre
+     * @param songObject represents the song the user is trying to create
+     * @return the result from calling the POST song method in GenreService
+     */
+    @PostMapping(path = "/genres/{genreId}/songs/")
+    public Song createSong(@PathVariable(value = "genreId") Long genreId, @RequestBody Song songObject) {
+
+        return genreService.createSong(genreId, songObject);
+    }
+
+    /**
+     *
+     *
+     * @param songId
+     * @param songObject
+     * @return
+     */
+    @PutMapping(path = "/genres/{genreId}/songs/{songId}/")
+    public Optional<Song> updateSong(Long songId, Song songObject) {
+        return genreService.updateSong(songId, songObject);
     }
 
     /**

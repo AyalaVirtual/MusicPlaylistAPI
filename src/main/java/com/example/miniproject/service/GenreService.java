@@ -50,13 +50,29 @@ public class GenreService {
         return userDetails.getUser();
     }
 
+
+    /**
+     * This is a GET request that checks to see if the list of music genres is empty before either throwing an InformationNotFoundException, or  returning the list of genres
+     *
+     * @return a list of all music genres
+     */
+    public List<Genre> getAllGenres() {
+        <List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
+
+        if (genreList.isEmpty()) {
+            throw new InformationNotFoundException("no genres found for user id");
+        } else {
+            return genreList;
+        }
+    }
+
     /**
      * This is a GET request that checks to see if an individual genre exists before either returning it, or throwing an InformationNotFoundException
      *
      * @param genreId represents the id of a specific genre of music
      * @return genre by id if it exists
      */
-    public Optional getGenre(Long genreId) {
+    public Optional getGenreById(Long genreId) {
         Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
 
         if (genreOptional.isPresent()) {
@@ -67,28 +83,13 @@ public class GenreService {
     }
 
     /**
-     * This is a GET request that checks to see if the list of music genres is empty before either throwing an InformationNotFoundException, or  returning the list of genres
-     *
-     * @return a list of all music genres
-     */
-    public List<Genre> getGenres() {
-        List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
-
-        if (genreList.isEmpty()) {
-            throw new InformationNotFoundException("no genres found for user id");
-        } else {
-            return genreList;
-        }
-    }
-
-    /**
      * This is a POST request that checks to see if a genre already exists before either throwing an InformationExistException, or saving the newly created genre to the repository
      *
      * @param genreObject represents the genre the user is trying to create
      * @return newly created genre
      */
-    public Genre createGenre(Long genreId, Genre genreObject) {
-        Genre genre = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
+    public Genre createGenre(Genre genreObject) {
+        Genre genre = genreRepository.findByNameAndUserId(genreObject.getName(), GenreService.getCurrentLoggedInUser().getId());
 
         if (genre != null ) {
             throw new InformationExistException("genre with name " + genreObject.getName() + " already exists");
@@ -106,17 +107,15 @@ public class GenreService {
      * @param genreObject represents the genre the user is trying to update
      * @return the newly updated genre
      */
-    public Genre updateGenre(Long genreId, Genre genreObject) {
-        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+    public Optional<Genre> updateGenre(Long genreId, Genre genreObject) {
+        Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
 
         if (genreOptional.isPresent()) {
-            if (genreObject.getName().equals(genreOptional.get().getName()) &&
-                    genreObject.getDescription().equals(genreOptional.get().getDescription())) {
-                throw new InformationExistException("The genre name is already " + genreObject.getName() + " and description is already " + genreObject.getDescription());
-            } else {
-                genreObject.setUser(GenreService.getCurrentLoggedInUser());
-                return genreRepository.save(genreObject);
-            }
+            genreOptional.get().setName(genreObject.getName());
+            genreOptional.get().setDescription(genreObject.getDescription());
+            genreOptional.get().setUser(GenreService.getCurrentLoggedInUser());
+            genreRepository.save(genreOptional.get());
+            return genreOptional;
         } else {
             throw new InformationNotFoundException("Genre with id " + genreId + " not found.");
         }
@@ -130,12 +129,47 @@ public class GenreService {
      * @return the deleted genre
      */
     public Optional<Genre> deleteGenre(Long genreId) {
-        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
         if (genreOptional.isPresent()) {
             genreRepository.deleteById(genreId);
             return genreOptional;
         } else {
             throw new InformationNotFoundException("genre with id " + genreId + " not found");
+        }
+    }
+
+
+    /**
+     * This is a GET request that returns a list of all songs saved to a user's account
+     *
+     * @return all songs
+     */
+    public List<Song> getAllSongs() {
+        List<Song> songList = songRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
+
+        if (songList.isEmpty()) {
+            throw new InformationNotFoundException("no songs found for user id");
+        } else {
+            return songList;
+        }
+    }
+
+
+    /**
+     * This is a GET request that checks to see if an individual song exists before either returning it, or throwing an InformationNotFoundException
+     *
+     * @param genreId represents the id of a specific genre 
+     * @param songId represents the id of a specific song 
+     * @return song by id if it exists
+     */
+    public Optional<Song> getSongById(Long genreId, Long songId){
+        Optional<Song> songOptional = Optional.of(songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId()));
+        Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
+
+        if (songOptional.isPresent() && genreOptional.get().getSongList().contains(songOptional)) {
+            return songOptional;
+        }else {
+            throw new InformationNotFoundException("song with id " + songId + " not found");
         }
     }
 
@@ -147,68 +181,49 @@ public class GenreService {
      * @param songObject represents the song the user is trying to create
      * @return the newly created song
      */
-//    public Song createSong(Long genreId, Song songObject) {
-//
-//        try {
-//            Optional<Genre> genreOptional = genreRepository.findById(genreId);
-//            songObject.setGenre(genreOptional.get());
-//            return songRepository.save(songObject);
-//
-//        } catch (InformationNotFoundException e) {
-//            throw new InformationNotFoundException("genre with id " + genreId + " not found");
-//        }
-//
-//    }
     public Song createSong(Long genreId, Song songObject) {
 
-            // find genre exist for user
-            Genre genre = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
-            // if genre does not exist, throw error
-            if (genre == null) {
-                throw new InformationNotFoundException("genre with id " + genreId + " not belongs to this user");
-            }
-            // find song name exists in genre that belongs to user
-            Song song = songRepository.findByNameAndUserId(songObject.getName(), GenreService.getCurrentLoggedInUser().getId());
-            // if exists, throw error
-            if (song != null) {
-                throw new InformationExistException("song with name " + songObject.getName() + " already exists");
-            }
-            // or else, create resource
-            songObject.setGenre(genre);
+        Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
+        Song song = songRepository.findByNameAndUserId(songObject.getName(), GenreService.getCurrentLoggedInUser().getId());
+
+        if (genreOptional == null) {
+
+            throw new InformationNotFoundException("genre with id " + genreId + " not belongs to this user");
+        } else if (song != null) {
+
+            throw new InformationExistException("song with name " + songObject.getName() + " already exists");
+        } else {
+
+            songObject.setGenre(genreOptional.get());
+            List<Song> songList = genreOptional.get().getSongList();
+            songList.add(song);
+            genreOptional.get().setSongList(songList);
             songObject.setUser(GenreService.getCurrentLoggedInUser());
             return songRepository.save(songObject);
-
-    }
-
-
-
-    /**
-     * This is a GET request that returns a list of all songs
-     *
-     * @return all songs
-     */
-    public List<Song> getSongs(){
-        return songRepository.findAll();
+        }
     }
 
 
     /**
-     * This is a GET request that checks to see if an individual song exists before either returning it, or throwing an InformationNotFoundException
+     * This method checks the song repository to see if the song the user is trying to update exists before either throwing an InformationNotFoundException, or saving the newly updated song to the song repository.
      *
-     * @param genreId represents the id of a specific genre 
-     * @param songId represents the id of a specific song 
-     * @return song by id if it exists
+     * @param songId represents the id of the song the user is trying to update
+     * @param songObject represents the updated version of the song that the user is trying to update
+     * @return the individual song if it exists
      */
-    public Optional<Song> getSong(Long genreId, Long songId){
+    public Optional<Song> updateSong(Long songId, Song songObject) {
+        Optional<Song> songOptional = songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId());
 
-        Optional<Song> songOptional = Optional.of(songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId()));
-
-        // Optional<Song> songOptional = songRepository.findById(songId);
-        Optional<Genre> genreOptional = genreRepository.findById((genreId));
-
-        if (songOptional.isPresent()){
+        if (songOptional.isPresent()) {
+            // set name, artist, album name, genre, user - then save
+            songOptional.get().setName(songObject.getName());
+            songOptional.get().setArtist(songObject.getArtist());
+            songOptional.get().setAlbumName(songObject.getAlbumName());
+            songOptional.get().setGenre(songObject.getGenre());
+            songOptional.get().setUser(GenreService.getCurrentLoggedInUser());
+            songRepository.save(songOptional.get());
             return songOptional;
-        }else {
+        } else {
             throw new InformationNotFoundException("song with id " + songId + " not found");
         }
     }
@@ -222,8 +237,7 @@ public class GenreService {
      * @return the deleted song
      */
     public Optional<Song> deleteSong(Long genreId, Long songId){
-        Optional<Genre> genreOptional = genreRepository.findById(genreId);
-        Optional<Song> songOptional = songRepository.findById(songId);
+        Optional<Song> songOptional = songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId());
 
         if (songOptional.isPresent()){
             songRepository.deleteById(songId);
