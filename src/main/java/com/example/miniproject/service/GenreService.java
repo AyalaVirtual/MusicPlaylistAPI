@@ -166,7 +166,7 @@ public class GenreService {
         Optional<Song> songOptional = songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId());
         Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
 
-        if (songOptional.isPresent() && genreOptional.get().getSongList().contains(songOptional)) {
+        if (songOptional.isPresent() && genreOptional.get().getSongList().contains(songOptional.get())) {
             return songOptional;
         }else {
             throw new InformationNotFoundException("song with id " + songId + " not found");
@@ -198,7 +198,6 @@ public class GenreService {
             songObject.setUser(GenreService.getCurrentLoggedInUser());
             List<Song> songList = genreOptional.get().getSongList();
             genreOptional.get().addToSongList(songObject);
-            genreOptional.get().setSongList(songList);
             return songRepository.save(songObject);
         }
     }

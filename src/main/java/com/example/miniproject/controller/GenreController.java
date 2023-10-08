@@ -114,7 +114,7 @@ public class GenreController {
      * @return
      */
     @PutMapping(path = "/genres/{genreId}/songs/{songId}/")
-    public Optional<Song> updateSong(Long songId, Song songObject) {
+    public Optional<Song> updateSong(@PathVariable(value = "songId") Long songId, @RequestBody Song songObject) {
         return genreService.updateSong(songId, songObject);
     }
 

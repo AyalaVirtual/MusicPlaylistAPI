@@ -85,7 +85,7 @@ public class Genre {
         this.songList = songList;
     }
 
-    public List<Song> addToSongList(Song newSong) {
+    public void addToSongList(Song newSong) {
         songList.add(newSong);
     }
 
