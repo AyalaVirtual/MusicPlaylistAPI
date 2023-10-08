@@ -57,7 +57,7 @@ public class GenreService {
      * @return a list of all music genres
      */
     public List<Genre> getAllGenres() {
-        <List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
+        List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
 
         if (genreList.isEmpty()) {
             throw new InformationNotFoundException("no genres found for user id");
@@ -73,7 +73,7 @@ public class GenreService {
      * @return genre by id if it exists
      */
     public Optional getGenreById(Long genreId) {
-        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
 
         if (genreOptional.isPresent()) {
             return genreOptional;
@@ -163,7 +163,7 @@ public class GenreService {
      * @return song by id if it exists
      */
     public Optional<Song> getSongById(Long genreId, Long songId){
-        Optional<Song> songOptional = Optional.of(songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId()));
+        Optional<Song> songOptional = songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId());
         Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
 
         if (songOptional.isPresent() && genreOptional.get().getSongList().contains(songOptional)) {
@@ -195,10 +195,10 @@ public class GenreService {
         } else {
 
             songObject.setGenre(genreOptional.get());
+            songObject.setUser(GenreService.getCurrentLoggedInUser());
             List<Song> songList = genreOptional.get().getSongList();
             songList.add(song);
             genreOptional.get().setSongList(songList);
-            songObject.setUser(GenreService.getCurrentLoggedInUser());
             return songRepository.save(songObject);
         }
     }
