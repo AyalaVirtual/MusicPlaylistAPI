@@ -91,9 +91,9 @@ When I first  tried to add the option to search for, save, update, and delete so
 
 ### Special Thanks
 
-* Suresh Sigera - my instructor who not only taught me all the concepts used in this project, but also wrote the code I used in the security package handling authorization. GitHub Link: https://github.com/sureshmelvinsigera
+* Suresh Sigera - my instructor who not only taught me all the concepts used in this project, but also wrote the code I used in the security package handling authorization. [GitHub](https://github.com/sureshmelvinsigera)
 
-* Elizabeth Yang - my partner in pair programming during class, who helped me to refactor CRUD methods relevant to the user, which I used as a reference when writing the CRUD methods for this project. GitHub Link: https://github.com/lizabawa
+* Elizabeth Yang - my partner in pair programming during class, who helped me to refactor CRUD methods relevant to the user, which I used as a reference when writing the CRUD methods for this project. [GitHub](https://github.com/lizabawa) 
 
 
 ### Author
