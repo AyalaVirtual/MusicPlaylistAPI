@@ -49,17 +49,19 @@ public class SeedData implements CommandLineRunner {
         genreRepository.save(genre1);
 
         Song song1A = new Song();
-        song1A.setGenre(genre1);
         song1A.setName("Already Dead");
         song1A.setArtist("Juice Wrld");
         song1A.setAlbumName("Fighting Demons");
+        song1A.setGenre(genre1);
+        song1A.setUser(user);
         songRepository.save(song1A);
 
         Song song1B = new Song();
-        song1B.setGenre(genre1);
         song1B.setName("Pillz & Billz");
         song1B.setArtist("Rod Wave");
         song1B.setAlbumName("SoulFly");
+        song1B.setGenre(genre1);
+        song1B.setUser(user);
         songRepository.save(song1B);
 
 
@@ -71,17 +73,19 @@ public class SeedData implements CommandLineRunner {
         genreRepository.save(genre2);
 
         Song song2A = new Song();
-        song2A.setGenre(genre2);
         song2A.setName("Last Day In");
         song2A.setArtist("Kodak Black");
         song2A.setAlbumName("Last Day In");
+        song2A.setGenre(genre2);
+        song2A.setUser(user);
         songRepository.save(song2A);
 
         Song song2B = new Song();
-        song2B.setGenre(genre2);
         song2B.setName("772 Love");
         song2B.setArtist("YNW Melly");
         song2B.setAlbumName("Collect Call");
+        song2B.setGenre(genre2);
+        song2B.setUser(user);
         songRepository.save(song2B);
 
 
@@ -93,17 +97,19 @@ public class SeedData implements CommandLineRunner {
         genreRepository.save(genre3);
 
         Song song3A = new Song();
-        song3A.setGenre(genre3);
         song3A.setName("Down");
         song3A.setArtist("RKM y Ken-Y");
         song3A.setAlbumName("Masterpiece");
+        song3A.setGenre(genre3);
+        song3A.setUser(user);
         songRepository.save(song3A);
 
         Song song3B = new Song();
-        song3B.setGenre(genre3);
         song3B.setName("Hoy lo Siento");
         song3B.setArtist("Zion y Lennox");
         song3B.setAlbumName("Los Verdaderos");
+        song3B.setGenre(genre3);
+        song3B.setUser(user);
         songRepository.save(song3B);
     }
 

@@ -2,10 +2,14 @@ package com.example.miniproject.security;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -27,9 +31,15 @@ public class JWTUtils {
      * @return JWT token
      */
     public String generateJwtToken(MyUserDetails myUserDetails) {
+        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+                .commaSeparatedStringToAuthorityList("ROLE_USER");
         // myUserDetails.getUsername() is the user's email address
         return Jwts.builder()
                 .setSubject(myUserDetails.getUsername())
+                .claim("authorities",
+                        grantedAuthorities.stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .collect(Collectors.toList()))
                 .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + jwtExpMS))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();

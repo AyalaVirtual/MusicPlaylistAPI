@@ -9,12 +9,9 @@ import com.example.miniproject.repository.GenreRepository;
 import com.example.miniproject.repository.SongRepository;
 import com.example.miniproject.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -108,14 +105,18 @@ public class GenreService {
      * @return the newly updated genre
      */
     public Optional<Genre> updateGenre(Long genreId, Genre genreObject) {
+
         Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
 
         if (genreOptional.isPresent()) {
+
             genreOptional.get().setName(genreObject.getName());
             genreOptional.get().setDescription(genreObject.getDescription());
+
             genreOptional.get().setUser(GenreService.getCurrentLoggedInUser());
             genreRepository.save(genreOptional.get());
             return genreOptional;
+
         } else {
             throw new InformationNotFoundException("Genre with id " + genreId + " not found.");
         }
@@ -129,7 +130,9 @@ public class GenreService {
      * @return the deleted genre
      */
     public Optional<Genre> deleteGenre(Long genreId) {
+
         Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
+
         if (genreOptional.isPresent()) {
             genreRepository.deleteById(genreId);
             return genreOptional;
@@ -163,7 +166,9 @@ public class GenreService {
      * @return song by id if it exists
      */
     public Optional<Song> getSongById(Long genreId, Long songId){
+
         Optional<Song> songOptional = songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId());
+
         Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
 
         if (songOptional.isPresent() && genreOptional.get().getSongList().contains(songOptional.get())) {
@@ -184,6 +189,7 @@ public class GenreService {
     public Song createSong(Long genreId, Song songObject) {
 
         Optional<Genre> genreOptional = genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId());
+
         Song song = songRepository.findByNameAndUserId(songObject.getName(), GenreService.getCurrentLoggedInUser().getId());
 
         if (genreOptional.isEmpty()) {
@@ -211,14 +217,16 @@ public class GenreService {
      * @return the individual song if it exists
      */
     public Optional<Song> updateSong(Long songId, Song songObject) {
+
         Optional<Song> songOptional = songRepository.findByIdAndUserId(songId, GenreService.getCurrentLoggedInUser().getId());
 
         if (songOptional.isPresent()) {
+
             songOptional.get().setName(songObject.getName());
             songOptional.get().setArtist(songObject.getArtist());
             songOptional.get().setAlbumName(songObject.getAlbumName());
             songOptional.get().setGenre(songObject.getGenre());
-            songOptional.get().setUser(GenreService.getCurrentLoggedInUser());
+
             songRepository.save(songOptional.get());
             return songOptional;
         } else {

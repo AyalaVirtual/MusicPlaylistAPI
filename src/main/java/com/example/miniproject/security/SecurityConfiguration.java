@@ -37,24 +37,16 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // http represents traffic
-        http.authorizeRequests()
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/auth/users/", "/auth/users/login/", "/auth/users/register/")
                 .permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 // .antMatchers() means allow matching patterns
-                .antMatchers("/h2-console/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                // CSRF stands for cross site request forgery
-                .csrf()
-                .disable()
-                .headers()
-                .frameOptions()
-                .disable();
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .headers().frameOptions().disable();
 
         http.addFilterBefore(authJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
