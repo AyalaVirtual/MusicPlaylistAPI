@@ -1,6 +1,6 @@
 # Music Playlist
 
-A RestAPI designed to allow users to register and login to their individual profiles and search for different songs and music genres and add them to a saved list of favorites.
+A REST API developed using Java and the Spring framework that offers users the ability to register and log in to their personalized profiles, where they can search for songs, explore diverse music genres, and curate a unique playlist of their favorite tracks. This project exemplifies the practical implementation of back-end development, database management, and API design. 
 
 ## Technologies Used
 
